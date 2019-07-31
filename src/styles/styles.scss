@@ -1,0 +1,115 @@
+:root {
+    --bg: #444;
+    --text-color: #fff;
+    --link-color: #639A67;
+    --link-hover: #205D67;
+  }
+  .funky {
+    --bg: hotpink;
+    --text-color: white;
+    --link-color: #B793E6;
+    --link-hover: #3532A7;
+  }
+  div {
+      display: block;
+  }
+  a {
+      color: #fff;
+  }
+  i {
+      padding-right: 3px;
+  }
+  body {
+      background-color: var(--bg);
+      }
+  .button4 {
+      background-color: #e7e7e7;
+      color: black;
+      padding: 10px;
+      width: 110px;
+      border-radius: 4px;
+  } 
+  .nav-buttons {
+      padding: 10px;
+      border-bottom: 1px solid grey;
+      border-top: 1px solid grey;
+  }
+  .box {
+      background-color: var(--bg);
+      color: var(--text-color);
+      padding: 20px;
+  }
+  
+  .header {
+      grid-area: header;
+      border: 1px solid grey;
+  
+  }
+  .menu {
+      grid-area: menu;
+      border-right: 1px solid grey;
+      height:100vh;
+  }
+  .disable-scrollbars::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* Chrome/Safari/Webkit */
+  }
+  
+  .disable-scrollbars {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+  }
+  .posts {
+    max-height: 500px;
+     overflow: auto;
+      grid-area: posts;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+  }
+  .posts::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* Chrome/Safari/Webkit */
+  }
+  .inline { 
+  display: inline-block; 
+  margin-right: 10px;
+  }
+  .grid-container {
+    width: 100vw;
+    position: fixed;
+      display: grid;
+      grid-gap: 1px;
+      grid-template-columns: 300px auto;
+      grid-template-rows: all;
+      grid-template-areas: "header header" "menu posts";
+      background-color: #444;
+      color: #fff;
+  }
+  @media screen and (max-width: 600px){
+    .grid-container { 
+       grid-auto-columns: auto;
+       grid-template-areas: "header header" "menu menu" "posts posts";
+    }
+    .posts {
+        overflow-y: scroll;
+    }
+    .menu {
+      height: 100%;
+      min-width: 500px;
+    }
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
