@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import {MenuReducer} from './Reducers/MenuReducer'
+import PostsReducer from './Reducers/PostsReducers'
 
 export default combineReducers({
-    menu: MenuReducer
+    posts: PostsReducer
 });
