@@ -7,7 +7,7 @@ import {retrievePosts} from "./store/Reducers/PostsReducers"
 
 const customHistory = createBrowserHistory();
 
-import PostsContainer from './components/Posts/PostsContainer.jsx';
+import MainComponent from './components/MainComponent.jsx';
 
 
 const onAppEnter = () => {
@@ -19,7 +19,7 @@ export default () => {
   return (
     <Provider store={store}>
       <Router history={customHistory}>
-        <Route path='/' component={PostsContainer}>
+        <Route path='/' component={MainComponent}>
         </Route>
       </Router>
     </Provider>

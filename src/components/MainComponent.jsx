@@ -1,22 +1,18 @@
 import React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 
-import rootReducer from '../store/reducers'
+import PostsContainer from './Posts/PostsContainer.jsx'
+import MenuContainer from './Menu/MenuContainer.jsx'
 
-const store = createStore(rootReducer);
 
 export default class MainComponent extends React.Component {
     render() {
-      return (<Provider store={store}><div>
+      return (
+        <div className="grid-container">
         <div id="headerId" className="box header">
         <h1><a href="#/">Krop Blog</a></h1>
         </div>
-        <div id="menuId" className="box menu">
-          
-        </div>
-        <div className="box posts" id="postsId"></div>
-        </div></Provider>);
+        <MenuContainer/>
+        <PostsContainer/></div>);
     }
   };
   
