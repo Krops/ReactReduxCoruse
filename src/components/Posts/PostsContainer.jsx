@@ -13,7 +13,6 @@ class PostsContainer extends React.Component {
 
   render() {
     const maxIndex = this.props.posts.length-1;
-    console.log(this.props)
     return (
         <div className="box posts" id="postsId">
         {

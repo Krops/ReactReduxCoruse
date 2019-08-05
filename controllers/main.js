@@ -3,11 +3,6 @@ var router = express.Router();
 var db = require('../models/db');
 
 
-
-router.get('/',function(req,res){
-    res.sendFile(path.join(__dirname+'/index.html'));
-  });
-
 router.get('/posts', (req, res) => {
     res.setHeader('Content-Type','application/json')
     return res.send(db.getPosts());
