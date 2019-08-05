@@ -8,6 +8,7 @@ import { retrievePost } from '../../store/Reducers/PostsReducers'
 class PostContainer extends React.Component {
   constructor(props) {
     super(props);
+    
   }
   render() {
     return (
@@ -20,10 +21,13 @@ class PostContainer extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  retrievePost: id => {
-    dispatch(retrievePost(message));
-  },
-});
-export default connect(null, mapDispatchToProps)(PostContainer);
+
+const mapStateToProps = (state, props) => {
+  console.log(state)
+  return {
+    seletedPost: () => state.retrievePost(props.match.params.id)
+  }
+}
+
+export default connect(mapStateToProps)(PostContainer);
 

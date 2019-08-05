@@ -38,7 +38,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => { 
-    return bindActionCreators(retrievePosts, dispatch);
+    return bindActionCreators({retrievePosts: retrievePosts()}, dispatch)
   }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);

@@ -11,12 +11,12 @@ app.use(bodyparser.urlencoded({
     extended: true
 }));
 app.use(bodyparser.json());
+app.use('/api', controller);
 app.use('/js', express.static('js'));
-app.get('/', (req, res) => res.sendFile('./templates/index.html', { root: __dirname }));
+app.get('/*', (req, res) => res.sendFile('./templates/index.html', { root: __dirname }));
 
 
 app.listen(4000, () => {
     console.log('Express server started at port : 4000');
 });
 
-app.use('/api', controller);
