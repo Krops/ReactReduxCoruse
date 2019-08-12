@@ -1,27 +1,24 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
+//import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
-
-import PostsComponent from './PostsComponent.jsx';
-import {retrievePosts} from '../../store/Reducers/PostsReducers'
+import {getPosts} from '../../store/Reducers/PostsReducers'
 import {createSelector} from 'reselect'
+import { Link } from 'react-router-dom'
 
 class PostsContainer extends React.Component {
-    constructor(props) {
-        super(props);
-      }
-
-
   render() {
     const maxIndex = this.props.posts.length-1;
     return (
         <div className="box posts" id="postsId">
         {
             
-          this.props.posts.map((post, index) => {
+          this.props.posts.map((post) => {
             return (
                 <div className="post" key={post.id}>
-                <PostsComponent index={index} post={post} />
+                  <h2 className="inline"><Link to={`/post/${post.id}`}>{post.theme}</Link></h2>
+                  <span className="inline">at 11/06/1992</span>
+                  <Link id="myBtn" role="button" className="fas fa-trash-alt inline" to={`/deletepost/${post.postId}`}></Link>
+                  <p>{post.description}</p>
                 {index < maxIndex && <hr />}
               </div>
             )
@@ -32,45 +29,26 @@ class PostsContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    posts: state.posts.posts
-  }
+const getPostsSelect = (state) => {
+  getPosts()
+  console.log(state.props)
+  return Object.values(state.props);
+} 
+
+const getPostSelect = (posts) => {
+  return posts.filter(post => post.id).reverse();
 }
 
-const mapDispatchToProps = (dispatch) => { 
-    return bindActionCreators({retrievePosts: retrievePosts()}, dispatch)
-  }
+const postSelector = createSelector(getPostsSelect, getPostSelect);
 
-
-
-  const makeGetPosts = () => createSelector(
-    (state) => state.posts.posts,
-    (state, props) => props.match.params.postId,
-    (posts, postId) => posts
-      .filter(id => posts[id].id === postId)
-      .map(id => {
-        return posts[id];
-      }),
-  );
-
-  const showAllPosts = (state) => state.posts.posts;
-
-  const postSelector = (posts, filter) => {
-    switch (filter) {
-      case 'SHOW_ALL':
-        return posts;
-      case 'SHOW_ONE':
-
-    }
-  }
-  
-  const mapState = () => {
-    const getPosts = makeGetPosts();
-    return (state, ownProps) => {
-      return {posts: getPosts(state, ownProps)};
-    };
+const mapStateToProps = state => {
+  return {
+    posts: postSelector(state)
   };
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);
+
+
+
+export default connect(mapStateToProps)(PostsContainer);
 
