@@ -1,13 +1,20 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-from';
+import { reduxForm, Field } from 'redux-form';
+import { Link } from 'react-router-dom'
 
 class PostForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.renderInput = this.renderInput.bind(this)
+        this.renderError = this.renderError.bind(this)
+        this.renderTextArea = this.renderTextArea.bind(this)
+    }
 
     renderInput ({ input, meta }) {
         const className = `form-width border ${meta.error && meta.touched ? 'error' : ''}`;
         return (
             <div>
-                <input {...input} autoComplete="off" className={className} />
+                <input {...input} className={className} />
                 {this.renderError(meta)}
             </div>
         );
@@ -28,19 +35,22 @@ class PostForm extends React.Component {
         const className = `form-width border ${meta.error && meta.touched ? 'error' : ''}`;
         return (
             <div>
-                <textarea {...input} autoComplete="off" className={className} />
+                <textarea {...input} className={className} />
                 {this.renderError(meta)}
             </div>
         );
     }
     render() {
         return (
+            <div>
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 <div>Theme:<Field name="theme" component={this.renderInput} /></div>
                 <div>Description:<Field component={this.renderTextArea} name="description" /></div>
-                <button id="yes" type="button" className="fas fa-check-circle button4">YES</button>
-                <button id="cancel" type="button" className="fas fa-ban button4">CANCEL</button>
+                <button className="fas fa-check-circle button4">Submit</button>
+                
             </form>
+            <Link role="button" className="fas fa-ban button4" to="/">CANCEL</Link>
+            </div>
         )
     }
     

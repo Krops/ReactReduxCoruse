@@ -10,6 +10,7 @@ import MenuContainer from './components/Menu/MenuContainer.jsx';
 import HeaderContainer from './components/Menu/HeaderComponent.jsx';
 import PostComponent from './components/Posts/PostContainer.jsx';
 import PostsComponent from './components/Posts/PostsContainer.jsx';
+import AddPostContainer from './components/AddPost/AddPostContainer.jsx';
 const store = configureStore();
 
 export default () => {
@@ -22,6 +23,7 @@ export default () => {
           <Switch>
             <Route exact path='/' exact component={PostsComponent} />
             <Route exact path='/post/:postId' component={PostComponent} />
+            <Route exact path='/addpost' component={AddPostContainer} />
           </Switch>
         </div>
       </Router>

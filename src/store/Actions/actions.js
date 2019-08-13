@@ -3,6 +3,7 @@ import axios from 'axios';
 const RETRIEVE_POSTS = 'RETRIEVE_POSTS';
 const ITEMS_HAS_ERRORED = 'ITEMS_HAS_ERRORED';
 const ITEMS_IS_LOADING = 'ITEMS_IS_LOADING';
+const CREATE_POST = 'CREATE_POST';
 
 export function itemsFetchDataSuccess(items) {
     return {
@@ -24,6 +25,13 @@ export function itemsFetchDataSuccess(items) {
     };
   }
 
+  export function postAdded(item) {
+    return {
+        type: CREATE_POST,
+        item: item
+    };
+  }
+
 
   export function getPosts() {
     return (dispatch) => {
@@ -41,3 +49,19 @@ export function itemsFetchDataSuccess(items) {
             .catch(() => dispatch(itemsHasErrored(true)));
     };
   }
+
+  export function addPost(valueForm) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        axios.post('/api/addPost', {...valueForm})
+            .then((response) => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                }
+                dispatch(itemsIsLoading(false));
+                return valueForm;
+            })
+            .then((item) => dispatch(postAdded(item)))
+            .catch(() => dispatch(itemsHasErrored(true)));
+  };
+}
