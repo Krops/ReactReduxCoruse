@@ -1,38 +1,54 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getPosts } from '../../store/Reducers/PostsReducers'
+import { getPosts } from '../../store/Actions/actions'
 import { Link } from 'react-router-dom'
+import {getPropsSelector} from '../../store/selectors'
+import PostsComponent from './PostsComponent.jsx'
 
 class PostContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.props.fetchData();
     
   }
   render() {
-    return (
-      <div className="box posts" id="postsId">
-        {
-          <section>
-          <h2 className="inline"></h2>
-          <span className="inline">at 11/06/1992</span>
-          <Link id="myBtn" role="button" className="fas fa-trash-alt inline" to={`/deletepost/${props.match.params.postId}`}></Link>
-          <Link id="myBtn2" role="button" className="fas fa-plus-square inline" to={`/updatepost/${props.match.params.postId}`}></Link>
-          <p>{props.description}</p>
-        </section>
-        }
-      </div>
-    )
+    if (this.props.hasErrored) {
+      return <p>Sorry! There was an error loading the items</p>;
+  }
+  if (this.props.isLoading) {
+      return <p>Loading…</p>;
+  }
+  console.log(this.props.items)
+  return (
+    <div className="box posts" id="postsId">
+    {
+        
+      this.props.items.map((post, index) => {
+        return (
+            <div className="post" key={post.id}>
+            <PostsComponent index={index} post={post} />
+          </div>
+        )
+      })
+    }
+  </div>
+)
   }
 }
-
 
 const mapStateToProps = (state, props) => {
-  console.log(state)
   return {
-    post: () => state.posts[props.match.params.id]
-  }
-}
+      items: getPropsSelector(state, props),
+      hasErrored: state.itemsHasErrored,
+      isLoading: state.itemsIsLoading
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchData: () => dispatch(getPosts())
+  };
+};
 
-export default connect(mapStateToProps, getPosts)(PostContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
 

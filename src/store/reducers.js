@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
-import PostsReducer from './Reducers/PostsReducers'
+import { items, itemsHasErrored, itemsIsLoading } from './Reducers/PostsReducers'
 
 export default combineReducers({
-    posts: PostsReducer
+    items,
+    itemsHasErrored,
+    itemsIsLoading
 });

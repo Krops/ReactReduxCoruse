@@ -1,25 +1,31 @@
 import React from 'react';
-//import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
-import {getPosts} from '../../store/Reducers/PostsReducers'
-import {createSelector} from 'reselect'
+import {getPosts} from '../../store/Actions/actions'
+import {getPostsSelector} from '../../store/selectors'
 import { Link } from 'react-router-dom'
+import PostsComponent from './PostsComponent.jsx'
 
 class PostsContainer extends React.Component {
+  componentDidMount() {
+    this.props.fetchData();
+}
   render() {
-    const maxIndex = this.props.posts.length-1;
+    if (this.props.hasErrored) {
+      return <p>Sorry! There was an error loading the items</p>;
+  }
+  if (this.props.isLoading) {
+      return <p>Loading…</p>;
+  }
+    
     return (
         <div className="box posts" id="postsId">
         {
-            
-          this.props.posts.map((post) => {
+          
+          this.props.items.map((post, index ) => {
             return (
                 <div className="post" key={post.id}>
-                  <h2 className="inline"><Link to={`/post/${post.id}`}>{post.theme}</Link></h2>
-                  <span className="inline">at 11/06/1992</span>
-                  <Link id="myBtn" role="button" className="fas fa-trash-alt inline" to={`/deletepost/${post.postId}`}></Link>
-                  <p>{post.description}</p>
-                {index < maxIndex && <hr />}
+                  <PostsComponent index={index} post={post} />
               </div>
             )
           })
@@ -29,26 +35,20 @@ class PostsContainer extends React.Component {
   }
 }
 
-const getPostsSelect = (state) => {
-  getPosts()
-  console.log(state.props)
-  return Object.values(state.props);
-} 
-
-const getPostSelect = (posts) => {
-  return posts.filter(post => post.id).reverse();
-}
-
-const postSelector = createSelector(getPostsSelect, getPostSelect);
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    posts: postSelector(state)
+      items: getPostsSelector(state),
+      hasErrored: state.itemsHasErrored,
+      isLoading: state.itemsIsLoading
   };
-}
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchData: () => dispatch(getPosts())
+  };
+};
 
 
 
-
-export default connect(mapStateToProps)(PostsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);
 
