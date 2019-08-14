@@ -2,10 +2,16 @@ import React from 'react';
 
 import {connect} from 'react-redux';
 import PostForm from '../Posts/PostForm.jsx'
-import {addPost} from '../../store/Actions/actions'
+import {addPost, redirectToHome} from '../../store/Actions/actions'
+import { Redirect } from 'react-router-dom'
 
 class AddPostContainer extends React.Component {
     render() {
+        console.log(this.props.redirectOnSuccess)
+  if (this.props.redirectOnSuccess) {
+      console.log(this.props.redirectOnSuccess)
+    return <Redirect to="/" />;
+}
         return(
             <div id="postbody">
             <PostForm onSubmit={this.props.addPost}/>
@@ -14,5 +20,11 @@ class AddPostContainer extends React.Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+        redirectOnSuccess: state.redirectToHome
+    };
+  };
   
-export default connect(null, {addPost})(AddPostContainer);
+export default connect(mapStateToProps, {addPost})(AddPostContainer);

@@ -43,13 +43,12 @@ class PostForm extends React.Component {
     render() {
         return (
             <div>
-            <form onSubmit={this.props.handleSubmit}>
+            <form onSubmit={this.props.handleSubmit} to="/">
                 <div>Theme:<Field name="theme" component={this.renderInput} /></div>
                 <div>Description:<Field component={this.renderTextArea} name="description" /></div>
                 <button className="fas fa-check-circle button4">Submit</button>
-                
+                <Link role="button" className="fas fa-ban button4" to="/">CANCEL</Link>
             </form>
-            <Link role="button" className="fas fa-ban button4" to="/">CANCEL</Link>
             </div>
         )
     }

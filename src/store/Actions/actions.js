@@ -3,7 +3,17 @@ import axios from 'axios';
 const RETRIEVE_POSTS = 'RETRIEVE_POSTS';
 const ITEMS_HAS_ERRORED = 'ITEMS_HAS_ERRORED';
 const ITEMS_IS_LOADING = 'ITEMS_IS_LOADING';
+const REDIRECT_ON_SUCCESS = 'REDIRECT_ON_SUCCESS';
 const CREATE_POST = 'CREATE_POST';
+const UPDATE_POST = 'UPDATE_POST';
+const REMOVE_POST = 'REMOVE_POST';
+
+export function redirectToHome(bool) {
+    return {
+        type: REDIRECT_ON_SUCCESS,
+        redirectOnSuccess: bool
+    };
+  }
 
 export function itemsFetchDataSuccess(items) {
     return {
@@ -29,6 +39,20 @@ export function itemsFetchDataSuccess(items) {
     return {
         type: CREATE_POST,
         item: item
+    };
+  }
+
+  export function postUpdated(item) {
+    return {
+        type: UPDATE_POST,
+        item: item
+    };
+  }
+
+  export function postDeleted(id) {
+    return {
+        type: REMOVE_POST,
+        item: id
     };
   }
 
@@ -62,6 +86,42 @@ export function itemsFetchDataSuccess(items) {
                 return valueForm;
             })
             .then((item) => dispatch(postAdded(item)))
+            .catch(() => dispatch(itemsHasErrored(true)))
+            .then(() => dispatch(redirectToHome(true)));
+  };
+}
+
+export function updatePost(valueForm) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        axios.put('/api/posts/'+ valueForm.id, {...valueForm})
+            .then((response) => {
+                if (response.status != 200) {
+                    throw Error(response.statusText);
+                }
+                dispatch(itemsIsLoading(false));
+                return valueForm;
+            })
+            .then((item) => dispatch(postUpdated(item)))
+            .then(() => dispatch(redirectToHome(true)))
+            .catch(() => dispatch(itemsHasErrored(true)));
+  };
+}
+
+
+export function deletePost(id) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        axios.delete('/api/posts/'+ id)
+            .then((response) => {
+                if (response.status != 200) {
+                    throw Error(response.statusText);
+                }
+                dispatch(itemsIsLoading(false));
+                return id;
+            })
+            .then((id) => dispatch(postDeleted(id)))
+            .then(() => dispatch(redirectToHome(true)))
             .catch(() => dispatch(itemsHasErrored(true)));
   };
 }
