@@ -13,7 +13,22 @@ import PostsComponent from './components/Posts/PostsContainer.jsx';
 import AddPostContainer from './components/AddPost/AddPostContainer.jsx';
 import UpdatePostContainer from './components/AddPost/UpdatePostContainer.jsx'
 import DeletePostComponent from './components/Delete/DeleteComponent.jsx'
+import LoginContainer from './components/Login/LoginContainer.jsx'
+import LogoutContainer from './components/Login/LogoutContainer.jsx'
+import { Redirect } from 'react-router-dom'
 const store = configureStore();
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  return (
+  <Route {...rest} render={props => (
+    localStorage.getItem("token")
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />);
+}
+  
+  
+
 
 export default () => {
   return (
@@ -23,11 +38,13 @@ export default () => {
           <HeaderContainer />
           <MenuContainer />
           <Switch>
-            <Route exact path='/' exact component={PostsComponent} />
-            <Route exact path='/post/:postId' component={PostComponent} />
-            <Route exact path='/addpost' component={AddPostContainer} />
-            <Route exact path='/updatepost/:postId' component={UpdatePostContainer} />
-            <Route exact path='/deletepost/:postId' component={DeletePostComponent} />
+            <Route exact path='/login' exact component={LoginContainer} />
+            <Route exact path='/logout' exact component={LogoutContainer} />
+            <PrivateRoute component={PostsComponent} path='/' exact  />
+            <PrivateRoute component={PostComponent} path='/post/:postId' exact />
+            <PrivateRoute component={AddPostContainer} path='/addpost' exact />
+            <PrivateRoute component={UpdatePostContainer} path='/updatepost/:postId' exact  />
+            <PrivateRoute component={DeletePostComponent} path='/deletepost/:postId' exact />
           </Switch>
         </div>
       </Router>

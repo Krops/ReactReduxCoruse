@@ -40,6 +40,10 @@ class MenuContainer extends React.Component {
         <hr />
         <Link to="/addpost" role="button" id="add_post" className="inline button4"><i
           className="fas fa-plus-square"></i>Add Post</Link>
+          <Link to="/login" role="button" id="login_button" className="inline button4"><i
+          className="fas fa-plus-square"></i>Login</Link>
+          <Link to="/logout" role="button" id="logout_button" className="inline button4"><i
+          className="fas fa-plus-square"></i>Logout</Link>
       </div>
     )
   }

@@ -7,6 +7,7 @@ const REDIRECT_ON_SUCCESS = 'REDIRECT_ON_SUCCESS';
 const CREATE_POST = 'CREATE_POST';
 const UPDATE_POST = 'UPDATE_POST';
 const REMOVE_POST = 'REMOVE_POST';
+const IS_AUTHORIZED =  'IS_AUTHORIZED';
 
 export function redirectToHome(bool) {
     return {
@@ -124,4 +125,34 @@ export function deletePost(id) {
             .then(() => dispatch(redirectToHome(true)))
             .catch(() => dispatch(itemsHasErrored(true)));
   };
+}
+
+export function loginAction(bool) {
+  return {
+    type: IS_AUTHORIZED,
+    isAuthorized: bool
+};
+}
+
+export function login(valueForm) {
+  return (dispatch) => { 
+    if (valueForm.login === 'admin') {
+      dispatch(loginAction(true));
+      localStorage.setItem("token", 'FakeLogin')
+    }
+    else {
+      dispatch(loginAction(false));
+      localStorage.removeItem("token")
+    }
+  };
+
+}
+
+
+export function logout() {
+  return (dispatch) => { 
+    dispatch(loginAction(false));
+    localStorage.removeItem("token")
+  };
+
 }

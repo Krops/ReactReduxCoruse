@@ -8,6 +8,7 @@ const CREATE_POST = 'CREATE_POST';
 const REMOVE_POST = 'REMOVE_POST';
 const UPDATE_POST = 'UPDATE_POST';
 const REDIRECT_ON_SUCCESS = 'REDIRECT_ON_SUCCESS';
+const IS_AUTHORIZED =  'IS_AUTHORIZED';
 
 export function redirectToHome(state = false, action) {
   switch (action.type) {
@@ -65,6 +66,15 @@ export function deletePost(state = {}, action) {
   switch (action.type) {
     case REMOVE_POST:
       return action.item;
+    default:
+      return state;
+  }
+}
+
+export function accountIsAuthorized(state = false, action) {
+  switch (action.type) {
+    case IS_AUTHORIZED:
+      return action.isAuthorized;
     default:
       return state;
   }
