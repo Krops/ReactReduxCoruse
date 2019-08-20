@@ -1,14 +1,7 @@
 
 import _ from 'lodash'
+import {REDIRECT_ON_SUCCESS, RETRIEVE_POSTS, ITEMS_HAS_ERRORED,ITEMS_IS_LOADING,CREATE_POST, UPDATE_POST, REMOVE_POST, IS_AUTHORIZED} from '../actions/types'
 
-const RETRIEVE_POSTS = 'RETRIEVE_POSTS';
-const ITEMS_HAS_ERRORED = 'ITEMS_HAS_ERRORED';
-const ITEMS_IS_LOADING = 'ITEMS_IS_LOADING';
-const CREATE_POST = 'CREATE_POST';
-const REMOVE_POST = 'REMOVE_POST';
-const UPDATE_POST = 'UPDATE_POST';
-const REDIRECT_ON_SUCCESS = 'REDIRECT_ON_SUCCESS';
-const IS_AUTHORIZED = 'IS_AUTHORIZED';
 
 export function redirectToHome(state = false, action) {
   switch (action.type) {

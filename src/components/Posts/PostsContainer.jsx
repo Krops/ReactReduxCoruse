@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getPosts, redirectToHome } from '../../store/actions/actions'
+import { getPosts } from '../../store/actions/actions'
+import { redirectToHome } from '../../store/actions/actionCreators'
 import { getPostsSelector } from '../../store/selectors'
-import { Link } from 'react-router-dom'
 import PostsComponent from './PostsComponent.jsx'
 import _ from 'lodash';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getPosts, updatePost, redirectToHome } from '../../store/actions/actions'
+import { getPosts, updatePost } from '../../store/actions/actions'
 import { Redirect } from 'react-router-dom'
 import { getPropsSelector } from '../../store/selectors'
 import PostForm from '../Posts/PostForm.jsx'

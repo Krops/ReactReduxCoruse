@@ -1,61 +1,5 @@
 import axios from 'axios';
-
-const RETRIEVE_POSTS = 'RETRIEVE_POSTS';
-const ITEMS_HAS_ERRORED = 'ITEMS_HAS_ERRORED';
-const ITEMS_IS_LOADING = 'ITEMS_IS_LOADING';
-const REDIRECT_ON_SUCCESS = 'REDIRECT_ON_SUCCESS';
-const CREATE_POST = 'CREATE_POST';
-const UPDATE_POST = 'UPDATE_POST';
-const REMOVE_POST = 'REMOVE_POST';
-const IS_AUTHORIZED = 'IS_AUTHORIZED';
-
-export function redirectToHome(bool) {
-  return {
-    type: REDIRECT_ON_SUCCESS,
-    redirectOnSuccess: bool
-  };
-}
-
-export function itemsFetchDataSuccess(payload) {
-  return {
-    type: RETRIEVE_POSTS,
-    payload
-  };
-}
-
-export function itemsHasErrored(bool) {
-  return {
-    type: ITEMS_HAS_ERRORED,
-    hasErrored: bool
-  };
-}
-export function itemsIsLoading(bool) {
-  return {
-    type: ITEMS_IS_LOADING,
-    isLoading: bool
-  };
-}
-
-export function postAdded(payload) {
-  return {
-    type: CREATE_POST,
-    payload
-  };
-}
-
-export function postUpdated(payload) {
-  return {
-    type: UPDATE_POST,
-    payload
-  };
-}
-
-export function postDeleted(payload) {
-  return {
-    type: REMOVE_POST,
-    payload
-  };
-}
+import { itemsIsLoading, itemsFetchDataSuccess, itemsHasErrored, postAdded, redirectToHome, postUpdated, postDeleted, loginAction } from './actionCreators'
 
 
 export function getPosts() {
@@ -109,7 +53,6 @@ export function updatePost(valueForm) {
   };
 }
 
-
 export function deletePost(id) {
   return (dispatch) => {
     dispatch(itemsIsLoading(true));
@@ -127,13 +70,6 @@ export function deletePost(id) {
   };
 }
 
-export function loginAction(bool) {
-  return {
-    type: IS_AUTHORIZED,
-    isAuthorized: bool
-  };
-}
-
 export function login(valueForm) {
   return (dispatch) => {
     if (valueForm.login === 'admin') {
@@ -147,7 +83,6 @@ export function login(valueForm) {
   };
 
 }
-
 
 export function logout() {
   return (dispatch) => {

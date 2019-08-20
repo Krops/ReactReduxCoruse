@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getPosts } from '../../store/actions/actions'
-import { Link } from 'react-router-dom'
 import { getPropsSelector } from '../../store/selectors'
 import PostsComponent from './PostsComponent.jsx'
 import _ from 'lodash';

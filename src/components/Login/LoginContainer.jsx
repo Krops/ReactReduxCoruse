@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import LoginForm from './LoginForm.jsx'
 import { login } from '../../store/actions/actions'
 import { Redirect } from 'react-router-dom'
-import { redirectToHome } from '../../store/actions/actions'
+import { redirectToHome } from '../../store/actions/actionCreators'
 
 class LoginContainer extends React.Component {
     render() {
