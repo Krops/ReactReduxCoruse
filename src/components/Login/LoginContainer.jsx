@@ -2,13 +2,13 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import LoginForm from './LoginForm.jsx'
-import { login } from '../../store/Actions/actions'
+import { login } from '../../store/actions/actions'
 import { Redirect } from 'react-router-dom'
+import { redirectToHome } from '../../store/actions/actions'
 
 class LoginContainer extends React.Component {
     render() {
-        if (this.props.isAuthorized) {
-            console.log("authorized")
+        if (this.props.isAuthorized.isAuthorized) {
             return <Redirect to="/" />;
         }
         return (
@@ -26,4 +26,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { login })(LoginContainer);
+export default connect(mapStateToProps, { login, redirectToHome })(LoginContainer);

@@ -5,6 +5,6 @@ import Router from './routing';
 
 
 ReactDOM.render(
-    <Router/>
+  <Router />
   , document.getElementById('app')
 );

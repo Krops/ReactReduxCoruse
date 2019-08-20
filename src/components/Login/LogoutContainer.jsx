@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { logout } from '../../store/Actions/actions'
+import { logout } from '../../store/actions/actions'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ class LogoutContainer extends React.Component {
         } else {
             return <Redirect to="/login" />;
         }
-        
+
     }
 
 }

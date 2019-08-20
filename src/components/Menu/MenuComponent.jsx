@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const MenuComponent = (props) => {
   return (
-      <Link to={`/post/${props.post.id}`}>{props.post.theme}</Link>
+    <Link to={`/post/${props.post.id}`}>{props.post.theme}</Link>
   );
 }
 

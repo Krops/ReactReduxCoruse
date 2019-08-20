@@ -8,7 +8,7 @@ class LoginForm extends React.Component {
         this.renderError = this.renderError.bind(this)
     }
 
-    renderInput ({ input, meta }) {
+    renderInput({ input, meta }) {
         const className = `form-width border ${meta.error && meta.touched ? 'error' : ''}`;
         return (
             <div>
@@ -18,7 +18,7 @@ class LoginForm extends React.Component {
         );
     }
 
-    renderError ({ error, touched }) {
+    renderError({ error, touched }) {
         if (touched && error) {
             return (
                 <div className="errors ui">
@@ -29,7 +29,7 @@ class LoginForm extends React.Component {
 
     }
 
-    renderTextArea({input, meta}) {
+    renderTextArea({ input, meta }) {
         const className = `form-width border ${meta.error && meta.touched ? 'error' : ''}`;
         return (
             <div>
@@ -41,24 +41,24 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div>
-            <form onSubmit={this.props.handleSubmit} to="/">
-                <div>Username:<Field name="login" component={this.renderInput} /></div>
-                <div>Password:<Field name="password" component={this.renderInput} /></div>
-                <button className="fas fa-check-circle button4">Login</button>
-            </form>
+                <form onSubmit={this.props.handleSubmit} to="/">
+                    <div>Username:<Field name="login" component={this.renderInput} /></div>
+                    <div>Password:<Field name="password" component={this.renderInput} /></div>
+                    <button className="fas fa-check-circle button4">Login</button>
+                </form>
             </div>
         )
     }
-    
+
 }
 const validateData = formValues => {
     const errors = {};
-    if (!formValues.login){
+    if (!formValues.login) {
         errors.login = 'Theme is required'
     }
-    if (!formValues.password){
+    if (!formValues.password) {
         errors.password = 'Description is required'
     }
     return errors;
 }
-export default reduxForm({form: 'loginForm', validateData})(LoginForm);
+export default reduxForm({ form: 'loginForm', validateData })(LoginForm);
