@@ -1,61 +1,59 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getPosts, updatePost, redirectToHome } from '../../store/Actions/actions'
+import { getPosts, updatePost } from '../../store/actions/actions'
 import { Redirect } from 'react-router-dom'
-import {getPropsSelector} from '../../store/selectors'
+import { getPropsSelector } from '../../store/selectors'
 import PostForm from '../Posts/PostForm.jsx'
+import _ from 'lodash';
 
 class UpdatePostContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getPosts();
-    
+  }
+
+  componentDidMount() {
+    if (this.props.location.pathname.includes("updatepost")) {
+      this.props.getPosts();
+    }
   }
   render() {
-    console.log(this.props.hasErrored)
-    if (this.props.hasErrored) {
-      return <p>Sorry! There was an error loading the items</p>;
-  }
-  if (this.props.isLoading) {
-      return <p>Loading…</p>;
-  }
-  console.log(this.props.redirectOnSuccess)
-  if (this.props.redirectOnSuccess) {
-    () => dispatch({
-      type: 'REDIRECT_ON_SUCCESS',
-      redirectOnSuccess: false
-  })
-    return <Redirect to="/" />;
-}
-console.log(this.props.redirectOnSuccess)
-
-  console.log(this.props.items)
-  return (
-    <div className="box posts" id="postsId">
-    {
-        
-      this.props.items.map((post) => {
-        return (
-            <div className="post" key={post.id}>
-            <PostForm initialValues={post} onSubmit={this.props.updatePost}/>
-          </div>
-        )
-      })
+    if (this.props.redirectOnSuccess.redirectOnSuccess) {
+      return <Redirect to="/" />;
     }
-  </div>
-)
+    if (this.props.location.pathname.includes("updatepost")) {
+      return (
+        <div className="box posts" id="postsId">
+          {_.map(this.props.items, post => {
+            return (
+              <div className="post" key={post.id}>
+                <PostForm initialValues={post} onSubmit={this.props.updatePost} />
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else {
+      return (
+        <div id="postbody">
+          <PostForm onSubmit={this.props.addPost} />
+        </div>
+      )
+    }
+
   }
 }
 
 const mapStateToProps = (state, props) => {
+  let getItems = {}
+  if (props.location.pathname.includes("updatepost")) {
+    getItems = getPropsSelector(state, props);
+  }
   return {
-      items: getPropsSelector(state, props),
-      hasErrored: state.itemsHasErrored,
-      isLoading: state.itemsIsLoading,
-      redirectOnSuccess: state.redirectToHome
+    items: getItems,
+    redirectOnSuccess: state.redirectToHome
   };
 };
 
-export default connect(mapStateToProps, {getPosts, updatePost})(UpdatePostContainer);
+export default connect(mapStateToProps, { getPosts, updatePost })(UpdatePostContainer);
 

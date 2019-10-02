@@ -1,13 +1,11 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { Link } from 'react-router-dom'
 
-class PostForm extends React.Component {
+class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.renderInput = this.renderInput.bind(this)
         this.renderError = this.renderError.bind(this)
-        this.renderTextArea = this.renderTextArea.bind(this)
     }
 
     renderInput({ input, meta }) {
@@ -44,10 +42,9 @@ class PostForm extends React.Component {
         return (
             <div>
                 <form onSubmit={this.props.handleSubmit} to="/">
-                    <div>Theme:<Field name="theme" component={this.renderInput} /></div>
-                    <div>Description:<Field component={this.renderTextArea} name="description" /></div>
-                    <button className="fas fa-check-circle button4">Submit</button>
-                    <Link role="button" className="fas fa-ban button4" to="/">CANCEL</Link>
+                    <div>Username:<Field name="login" component={this.renderInput} /></div>
+                    <div>Password:<Field name="password" component={this.renderInput} /></div>
+                    <button className="fas fa-check-circle button4">Login</button>
                 </form>
             </div>
         )
@@ -56,12 +53,12 @@ class PostForm extends React.Component {
 }
 const validateData = formValues => {
     const errors = {};
-    if (!formValues.theme) {
-        errors.theme = 'Theme is required'
+    if (!formValues.login) {
+        errors.login = 'Theme is required'
     }
-    if (!formValues.description) {
-        errors.description = 'Description is required'
+    if (!formValues.password) {
+        errors.password = 'Description is required'
     }
     return errors;
 }
-export default reduxForm({ form: 'postForm', validateData })(PostForm);
+export default reduxForm({ form: 'loginForm', validateData })(LoginForm);
